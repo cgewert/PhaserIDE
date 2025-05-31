@@ -80,7 +80,6 @@ namespace PhaserIDE.Views
             }
 
             StatusBlock.Text = "Creating project...";
-            PhaserConsole.IsConsoleVisible = true;
 
             try
             {
@@ -104,7 +103,7 @@ namespace PhaserIDE.Views
                     {
                         if (ea.Data != null)
                         {
-                            Dispatcher.Invoke(() => PhaserConsole.AppendLine(ea.Data));
+                            Dispatcher.Invoke(() => PhaserConsole.ConsoleViewModel.AddLog(ea.Data));
                         }
                     };
                     process.ErrorDataReceived += (s, ea) =>
@@ -112,7 +111,7 @@ namespace PhaserIDE.Views
                         if (ea.Data != null)
                         {
                             // Append an error message with a different color
-                            Dispatcher.Invoke(() => PhaserConsole.AppendLine(ea.Data, true));
+                            Dispatcher.Invoke(() => PhaserConsole.ConsoleViewModel.AddLog(ea.Data, true));
                         }
                     };
                     process.Start();
