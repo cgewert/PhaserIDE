@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="PhaserIDE.Controls.Console"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PhaserIDE.Controls" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:converters="clr-namespace:PhaserIDE.Converters">
+    <UserControl.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" VisibilityFlag="True" CollapsedValue="Collapsed"/>
+    </UserControl.Resources>
+        <Grid>
+            <RichTextBox x:Name="ConsoleOutputRichBox"
+                             Visibility="{Binding IsConsoleVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+                             FontFamily="Cascadia Mono, Consolas, 'Fira Mono', 'Segoe UI', monospace"
+                             Loaded="ConsoleOutputRichBox_Loaded"
+                             FontSize="13"
+                             Padding="10"
+                             BorderThickness="1"
+                             BorderBrush="{DynamicResource MaterialDesignDivider}"
+                             Background="{DynamicResource MaterialDesignPaper}"
+                             Foreground="{DynamicResource MaterialDesignBody1}"
+                             Width="800"
+                             Height="350"
+                             IsReadOnly="True"
+                             VerticalScrollBarVisibility="Auto"
+                             HorizontalScrollBarVisibility="Auto"
+            />
+    </Grid>
+</UserControl>

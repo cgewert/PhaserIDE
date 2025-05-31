@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36121.58 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhaserIDE", "PhaserIDE.csproj", "{EB9AE90C-74B1-4281-B18C-54040EDD59FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB9AE90C-74B1-4281-B18C-54040EDD59FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB9AE90C-74B1-4281-B18C-54040EDD59FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB9AE90C-74B1-4281-B18C-54040EDD59FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB9AE90C-74B1-4281-B18C-54040EDD59FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {60B53A17-3641-4A53-926F-63D434C6FAE0}
+	EndGlobalSection
+EndGlobal
