@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
+﻿using PhaserIDE.Services;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Controls;
 using System.Windows;
-using PhaserIDE.Services;
+using System.Windows.Controls;
 
 namespace PhaserIDE.Views
 {
@@ -34,8 +34,8 @@ namespace PhaserIDE.Views
         public double EditorFontSize
         {
             get => _editorFontSize;
-            set 
-            { 
+            set
+            {
                 _editorFontSize = value;
                 OnPropertyChanged();
             }
@@ -80,7 +80,7 @@ namespace PhaserIDE.Views
 
         private void OnSettingsChanged(object sender, string settingsName)
         {
-            switch(settingsName)
+            switch (settingsName)
             {
                 case "IsDarkTheme":
                     IsDarkTheme = SettingsService.IsDarkTheme;

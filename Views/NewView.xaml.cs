@@ -1,10 +1,12 @@
-﻿using System.ComponentModel;
+﻿using MaterialDesignThemes.Wpf;
+using PhaserIDE.Services;
+using PhaserIDE.Services.Interfaces;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Media;
 
@@ -18,11 +20,33 @@ namespace PhaserIDE.Views
         public static readonly string PROCESS_NAME = "phaser.exe";
         public static readonly Brush ErrorBrush = Brushes.Red;
 
+        private ITemplatePlaceholderAnalyzer _templatePlaceholderAnalyzer;
+
 
         public NewView()
         {
             InitializeComponent();
             DataContext = this;
+            _templatePlaceholderAnalyzer = ViewModelService.InstanceOf<TemplatePlaceholderAnalyzer>();
+            Loaded += NewView_Loaded;
+        }
+
+        private async void NewView_Loaded(object sender, RoutedEventArgs e)
+        {
+            var result = await _templatePlaceholderAnalyzer.AnalyzeAsync(@"E:\Programmieren\phaser-gen-cli\src\templates");
+
+            foreach (var placeholder in result.Keys)
+            {
+                var textBox = new System.Windows.Controls.TextBox
+                {
+                    Margin = new Thickness(0, 8, 0, 8),
+                    MinWidth = 300
+                };
+
+                HintAssist.SetHint(textBox, placeholder);
+
+                PlaceholderPanel.Children.Add(textBox);
+            }
         }
 
         private bool _hasErrors = false;
@@ -103,7 +127,7 @@ namespace PhaserIDE.Views
                     {
                         if (ea.Data != null)
                         {
-                            Dispatcher.Invoke(() => PhaserConsole.ConsoleViewModel.AddLog(ea.Data));
+                            Dispatcher.Invoke(() => PhaserConsole.AddLog(ea.Data));
                         }
                     };
                     process.ErrorDataReceived += (s, ea) =>
@@ -111,7 +135,7 @@ namespace PhaserIDE.Views
                         if (ea.Data != null)
                         {
                             // Append an error message with a different color
-                            Dispatcher.Invoke(() => PhaserConsole.ConsoleViewModel.AddLog(ea.Data, true));
+                            Dispatcher.Invoke(() => PhaserConsole.AddLog(ea.Data, true));
                         }
                     };
                     process.Start();
@@ -122,7 +146,6 @@ namespace PhaserIDE.Views
                     if (process.ExitCode == 0)
                     {
                         HasErrors = false;
-                        //PhaserConsole.IsConsoleVisible = false;
                         StatusBlock.Foreground = (Brush)Resources["SuccessBrush"];
                         StatusBlock.Text = $"Project '{projectName}' created successfully!";
                     }
@@ -142,7 +165,7 @@ namespace PhaserIDE.Views
             {
                 StatusBlock.Foreground = HasErrors
                     ? (Brush)Resources["ErrorBrush"]
-                    : new SolidColorBrush(Color.FromRgb(255,255,255));
+                    : new SolidColorBrush(Color.FromRgb(255, 255, 255));
             }
         }
 

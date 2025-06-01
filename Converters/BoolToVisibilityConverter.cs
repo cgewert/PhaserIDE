@@ -6,7 +6,7 @@ namespace PhaserIDE.Converters
     /// Converts a boolean value to a Visibility value.
     /// Defaults to Visible if true, Collapsed if false.
     /// </summary>
-    internal class BoolToVisibilityConverter: System.Windows.Data.IValueConverter
+    internal class BoolToVisibilityConverter : System.Windows.Data.IValueConverter
     {
         public bool VisibilityFlag { get; set; } = true;
         public System.Windows.Visibility CollapsedValue { get; set; } = System.Windows.Visibility.Collapsed;
@@ -25,10 +25,11 @@ namespace PhaserIDE.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value is System.Windows.Visibility visibility)
+            if (value is System.Windows.Visibility visibility)
             {
                 return visibility == System.Windows.Visibility.Visible;
-            } else
+            }
+            else
             {
                 throw new ArgumentException("Value must be of type Visibility", nameof(value));
             }

@@ -31,22 +31,24 @@ namespace PhaserIDE.Services
             }
         }
 
-        public static double EditorFontSize 
-        { 
-            get => _fontSize; 
-            internal set 
-            { 
+        public static double EditorFontSize
+        {
+            get => _fontSize;
+            internal set
+            {
                 _fontSize = value;
                 SettingsChanged?.Invoke(null, nameof(EditorFontSize));
-            } 
+            }
         }
 
-        public static bool ShowLineNumbers { 
-            get => Settings.Default.ShowLineNumbers; 
-            internal set {
+        public static bool ShowLineNumbers
+        {
+            get => Settings.Default.ShowLineNumbers;
+            internal set
+            {
                 _showLineNumbers = value;
                 SettingsChanged?.Invoke(null, nameof(ShowLineNumbers));
-            } 
+            }
         }
 
         private static bool LoadShowLineNumbers()

@@ -1,4 +1,5 @@
 ﻿using PhaserIDE.ViewModels;
+using PhaserIDE.ViewModels.Interfaces;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -11,16 +12,32 @@ namespace PhaserIDE.Controls
 {
     public partial class Console : UserControl, INotifyPropertyChanged
     {
-        public ConsoleViewModel ConsoleViewModel { get; } = new();
+        public IConsoleViewModel ViewModel { get; set; }
+
         public static readonly Brush ConErrorBrush = Brushes.OrangeRed;
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public Console()
         {
             InitializeComponent();
-            DataContext = ConsoleViewModel;
-            Logs = ConsoleViewModel.Logs;
         }
+
+        public bool IsConsoleSingleton
+        {
+            get => (bool)GetValue(IsConsoleSingletonProperty);
+            set
+            {
+                SetValue(IsConsoleSingletonProperty, value);
+                OnPropertyChanged(nameof(IsConsoleSingleton));
+            }
+        }
+
+        public static readonly DependencyProperty IsConsoleSingletonProperty =
+            DependencyProperty.Register(
+                nameof(IsConsoleSingleton),
+                typeof(bool),
+                typeof(Console),
+                new PropertyMetadata(false));
 
         public ObservableCollection<(string line, bool isError)> Logs
         {
@@ -76,6 +93,10 @@ namespace PhaserIDE.Controls
 
         private void ConsoleOutputRichBox_Loaded(object sender, RoutedEventArgs e)
         {
+            ViewModel = IsConsoleSingleton ? ViewModelService.InstanceOf<SingletonConsoleViewModel>() : ViewModelService.InstanceOf<ConsoleViewModel>();
+            DataContext = ViewModel;
+            Logs = ViewModel.Logs;
+
             Clear();
             Logs.Add(("Welcome to Phaser IDE!\n\n" +
                 "This is the console output area. You can see the output of the Phaser CLI here.\n" +
@@ -86,6 +107,11 @@ namespace PhaserIDE.Controls
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void AddLog(string line, bool isError = false)
+        {
+            ViewModel.AddLog(line, isError);
         }
     }
 }

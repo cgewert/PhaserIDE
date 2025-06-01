@@ -18,13 +18,25 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+            <!-- Console Output -->
+            <controls:Console 
+                Grid.Row="0"
+                Grid.Column="0"
+                FontSize="16"
+                IsConsoleSingleton="True"
+                Margin="0 0 0 50"
+                x:Name="PhaserConsole"
+            />  
             <!-- Projektname -->
             <TextBox x:Name="ProjectNameBox"  
+                     Grid.Row="1"
+                     Grid.Column="0"
                      materialDesign:HintAssist.Hint="Project name"
                      Style="{StaticResource MaterialDesignOutlinedTextBox}"
                      Height="60"
@@ -32,7 +44,7 @@
                      FontSize="16" />
 
             <!-- Zielordner -->
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,20">
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,0,0,20">
                 <TextBox x:Name="TargetFolderBox"  
                          materialDesign:HintAssist.Hint="Target folder"  
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"  
@@ -49,7 +61,7 @@
 
             <!-- Phaser-Version (optional) -->
             <ComboBox x:Name="PhaserVersionBox"  
-                      Grid.Row="2"
+                      Grid.Row="3"
                       Grid.Column="0"
                       materialDesign:HintAssist.Hint="Phaser version"
                       Style="{StaticResource MaterialDesignOutlinedComboBox}"  
@@ -64,7 +76,7 @@
 
             <!-- Projekt anlegen -->
             <Button Content="Create Project"  
-                    Grid.Row="3"
+                    Grid.Row="4"
                     Grid.Column="0"
                     Style="{StaticResource MaterialDesignRaisedButton}"  
                     materialDesign:ButtonAssist.CornerRadius="10"  
@@ -75,7 +87,7 @@
 
             <!-- Output / Status -->
             <TextBlock x:Name="StatusBlock"
-                       Grid.Row="4"
+                       Grid.Row="5"
                        Grid.Column="0"
                        Margin="0,20,0,20"
                        FontSize="18"
@@ -94,13 +106,13 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <!-- Console Output -->
-            <controls:Console 
-                Grid.Row="5"
-                Grid.Column="0"
-                FontSize="16"
-                x:Name="PhaserConsole"
-            />
+            <ScrollViewer Grid.Row="6" Grid.Column="0">
+                <StackPanel 
+                    x:Name="PlaceholderPanel"
+                    Orientation="Vertical"
+                    Margin="16"
+                    materialDesign:ColorZoneAssist.Mode="PrimaryDark" />
+            </ScrollViewer>
         </Grid>
     </ScrollViewer>
 </UserControl>

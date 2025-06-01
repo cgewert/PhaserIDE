@@ -5,11 +5,11 @@ using System.Runtime.CompilerServices;
 
 namespace PhaserIDE.ViewModels
 {
-    public class ConsoleViewModel : INotifyPropertyChanged, IConsoleViewModel
+    public class SingletonConsoleViewModel : INotifyPropertyChanged, IConsoleViewModel
     {
         private bool _isConsoleVisible = true;
 
-        public ConsoleViewModel()
+        public SingletonConsoleViewModel()
         {
         }
 
