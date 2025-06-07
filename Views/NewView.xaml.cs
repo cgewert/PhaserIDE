@@ -13,7 +13,7 @@ using System.Windows.Media;
 namespace PhaserIDE.Views
 {
     /// <summary>
-    /// Interaktionslogik für HomeView.xaml
+    /// Interaktionslogik für NewView.xaml
     /// </summary>
     public partial class NewView : System.Windows.Controls.UserControl, INotifyPropertyChanged
     {
