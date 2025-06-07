@@ -77,7 +77,7 @@ namespace PhaserIDE.Views
         {
             using (var dialog = new FolderBrowserDialog())
             {
-                dialog.Description = "Chose target folder:";
+                dialog.Description = "Choose target folder:";
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     TargetFolderBox.Text = dialog.SelectedPath;
