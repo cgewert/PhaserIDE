@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36121.58 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhaserIDE", "PhaserIDE.csproj", "{EB9AE90C-74B1-4281-B18C-54040EDD59FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhaserIDE.Tests", "PhaserIDE.Tests\\PhaserIDE.Tests.csproj", "{62B35B70-BD7C-4B4C-8B8E-3B293DC1FDA1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,8 +16,12 @@ Global
 		{EB9AE90C-74B1-4281-B18C-54040EDD59FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EB9AE90C-74B1-4281-B18C-54040EDD59FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB9AE90C-74B1-4281-B18C-54040EDD59FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB9AE90C-74B1-4281-B18C-54040EDD59FC}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
+                {EB9AE90C-74B1-4281-B18C-54040EDD59FC}.Release|Any CPU.Build.0 = Release|Any CPU
+                {62B35B70-BD7C-4B4C-8B8E-3B293DC1FDA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+                {62B35B70-BD7C-4B4C-8B8E-3B293DC1FDA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+                {62B35B70-BD7C-4B4C-8B8E-3B293DC1FDA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+                {62B35B70-BD7C-4B4C-8B8E-3B293DC1FDA1}.Release|Any CPU.Build.0 = Release|Any CPU
+        EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
