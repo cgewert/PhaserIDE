@@ -3,7 +3,7 @@
 namespace PhaserIDE.Views
 {
     /// <summary>
-    /// Interaktionslogik für HomeView.xaml
+    /// Interaktionslogik für ProjectsView.xaml
     /// </summary>
     public partial class ProjectsView : UserControl
     {
