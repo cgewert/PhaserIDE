@@ -85,8 +85,11 @@ namespace PhaserIDE.Views
                 case "IsDarkTheme":
                     IsDarkTheme = SettingsService.IsDarkTheme;
                     break;
-                case "FontSize":
+                case "EditorFontSize":
                     EditorFontSize = SettingsService.EditorFontSize;
+                    break;
+                case "ShowLineNumbers":
+                    OnPropertyChanged(nameof(ShowLineNumbers));
                     break;
             }
         }
