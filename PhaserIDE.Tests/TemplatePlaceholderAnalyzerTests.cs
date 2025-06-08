@@ -1,8 +1,8 @@
+using PhaserIDE.Services;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using Xunit;
-using PhaserIDE.Services;
 
 namespace PhaserIDE.Tests
 {
