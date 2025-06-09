@@ -35,6 +35,7 @@ namespace PhaserIDE
         {
             // ViewModels
             services.AddSingleton<SingletonConsoleViewModel>();
+            services.AddSingleton<NpmService>();
             services.AddTransient<ConsoleViewModel>();
             services.AddTransient<TemplatePlaceholderAnalyzer>();
 
