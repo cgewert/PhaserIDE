@@ -59,7 +59,7 @@
                         Click="OnBrowseFolder"/>
             </StackPanel>
 
-            <!-- Phaser-Version (optional) -->
+            <!-- Phaser version (optional) -->
             <ComboBox x:Name="PhaserVersionBox"  
                       Grid.Row="3"
                       Grid.Column="0"
@@ -68,11 +68,7 @@
                       FontSize="16"  
                       Width="200"  
                       Margin="0,0,0,20"
-                      HorizontalAlignment="Left">
-                <ComboBoxItem Content="3.88" IsSelected="True"/>
-                <ComboBoxItem Content="3.60"/>
-                <ComboBoxItem Content="Latest"/>
-            </ComboBox>
+                      HorizontalAlignment="Left"/>
 
             <!-- Projekt anlegen -->
             <Button Content="Create Project"  
@@ -106,13 +102,23 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <ScrollViewer Grid.Row="6" Grid.Column="0">
-                <StackPanel 
-                    x:Name="PlaceholderPanel"
-                    Orientation="Vertical"
-                    Margin="16"
-                    materialDesign:ColorZoneAssist.Mode="PrimaryDark" />
-            </ScrollViewer>
+            <StackPanel Grid.Row="6" Grid.Column="0">
+                <TextBlock Text="Enter values for the template placeholders:"
+                   FontSize="20"
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                   Margin="0,24,0,8"
+                   Foreground="{DynamicResource MaterialDesignBody}"
+                />
+                <ScrollViewer >
+                    <Grid x:Name="PlaceholderGrid" Margin="16" materialDesign:ColorZoneAssist.Mode="PrimaryDark">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*" MaxWidth="700"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ScrollViewer>
+            </StackPanel>
         </Grid>
     </ScrollViewer>
 </UserControl>
