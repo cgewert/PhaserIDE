@@ -70,16 +70,23 @@
                       Margin="0,0,0,20"
                       HorizontalAlignment="Left"/>
 
-            <!-- Projekt anlegen -->
-            <Button Content="Create Project"  
-                    Grid.Row="4"
-                    Grid.Column="0"
-                    Style="{StaticResource MaterialDesignRaisedButton}"  
-                    materialDesign:ButtonAssist.CornerRadius="10"  
-                    Background="{DynamicResource PrimaryHueMidBrush}"
-                    Foreground="{DynamicResource MaterialDesignBody}"
-                    FontSize="18"  
-                    Click="OnCreateProject"/>
+            <!-- Placeholder inputs -->
+            <StackPanel Grid.Row="4" Grid.Column="0">
+                <TextBlock Text="Fill out the project meta data:"
+                   FontSize="20"
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                   Margin="0,24,0,8"
+                   Foreground="{DynamicResource MaterialDesignBody}"
+                />  
+                <ScrollViewer >
+                    <Grid x:Name="PlaceholderGrid" Margin="16" materialDesign:ColorZoneAssist.Mode="PrimaryDark">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ScrollViewer>
+            </StackPanel>
 
             <!-- Output / Status -->
             <TextBlock x:Name="StatusBlock"
@@ -102,23 +109,20 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <StackPanel Grid.Row="6" Grid.Column="0">
-                <TextBlock Text="Enter values for the template placeholders:"
-                   FontSize="20"
-                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                   Margin="0,24,0,8"
-                   Foreground="{DynamicResource MaterialDesignBody}"
-                />
-                <ScrollViewer >
-                    <Grid x:Name="PlaceholderGrid" Margin="16" materialDesign:ColorZoneAssist.Mode="PrimaryDark">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*" MaxWidth="700"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ScrollViewer>
-            </StackPanel>
+
+            <!-- Projekt anlegen -->
+            <Button 
+                Content="Create Project"  
+                Grid.Row="6"
+                Grid.Column="0"
+                Style="{StaticResource MaterialDesignRaisedButton}"  
+                materialDesign:ButtonAssist.CornerRadius="10"  
+                Background="{DynamicResource PrimaryHueMidBrush}"
+                Foreground="{DynamicResource MaterialDesignBody}"
+                FontSize="18"
+                ToolTip="{Binding CreateButtonTooltip}"
+                Click="OnCreateProject"
+                IsEnabled="{Binding IsCreateButtonEnabled}"/>
         </Grid>
     </ScrollViewer>
 </UserControl>

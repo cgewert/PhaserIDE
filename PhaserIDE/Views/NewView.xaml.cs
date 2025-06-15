@@ -24,14 +24,29 @@ namespace PhaserIDE.Views
         private ITemplatePlaceholderAnalyzer _templatePlaceholderAnalyzer;
         private NpmService _npmService;
 
-
         public NewView()
         {
             InitializeComponent();
             DataContext = this;
+            _isCreateButtonEnabled = true;
             _templatePlaceholderAnalyzer = ViewModelService.InstanceOf<TemplatePlaceholderAnalyzer>();
             _npmService = ViewModelService.InstanceOf<NpmService>();
             Loaded += NewView_Loaded;
+        }
+
+        public bool IsCreateButtonEnabled
+        {
+            get => _isCreateButtonEnabled;
+            set
+            {
+                _isCreateButtonEnabled = value;
+                OnPropertyChanged(nameof(IsCreateButtonEnabled));
+            }
+        }
+
+        public string CreateButtonTooltip
+        {
+            get => _isCreateButtonEnabled ? "" : "Creating project...please wait!";
         }
 
         private async void NewView_Loaded(object sender, RoutedEventArgs e)
@@ -54,6 +69,9 @@ namespace PhaserIDE.Views
 
             foreach (var placeholder in result.Keys)
             {
+                if(placeholder == "PHASER_VERSION")
+                    continue; // Skip the PHASER_VERSION placeholder, as it is handled separately
+
                 var fileList = result[placeholder].Select(f => {
                     return (Path.GetFileName(f) + "; ").Replace(".template", "");
                 });
@@ -69,30 +87,23 @@ namespace PhaserIDE.Views
                     MinWidth = 300,
                     Tag = placeholder
                 };
-                var files = new System.Windows.Controls.Label
-                {
-                    Content = string.Concat(fileList),
-                    Margin = new Thickness(0, 8, 0, 0)
-                };
 
                 HintAssist.SetHint(textBox, placeholder);
 
                 PlaceholderGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
                 Grid.SetColumn(label, 0);
                 Grid.SetColumn(textBox, 1);
-                Grid.SetColumn(files, 2);
                 Grid.SetRow(label, PlaceholderGrid.RowDefinitions.Count - 1);
                 Grid.SetRow(textBox, PlaceholderGrid.RowDefinitions.Count - 1);
-                Grid.SetRow(files, PlaceholderGrid.RowDefinitions.Count - 1);
                 
                 PlaceholderGrid.Children.Add(textBox);
                 PlaceholderGrid.Children.Add(label);
-                PlaceholderGrid.Children.Add(files);
             }
         }
 
         private bool _hasErrors = false;
         private bool _projectCreated = false;
+        private bool _isCreateButtonEnabled;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -129,10 +140,12 @@ namespace PhaserIDE.Views
 
         private async void OnCreateProject(object sender, RoutedEventArgs e)
         {
+            IsCreateButtonEnabled = false;
+
             string ConfigFileName = "project.config.json";
             var projectName = ProjectNameBox.Text?.Trim();
             var targetFolder = TargetFolderBox.Text?.Trim();
-            var phaserVersion = (PhaserVersionBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+            var phaserVersion = PhaserVersionBox.SelectedItem.ToString();
             var placeholderValues = new Dictionary<string, string>();
 
             if (!IsValidPath(targetFolder) || string.IsNullOrEmpty(projectName))
@@ -141,6 +154,17 @@ namespace PhaserIDE.Views
                 // Override all other styles
                 StatusBlock.Foreground = (Brush)Resources["ErrorBrush"];
                 StatusBlock.Text = "Please fill out all fields correctly!";
+                IsCreateButtonEnabled = true;
+                return;
+            }
+
+            if (!CheckIfProjectFolderIsEmpty(Path.Combine(targetFolder!, projectName)))
+            {
+                HasErrors = true;
+                // Override all other styles
+                StatusBlock.Foreground = (Brush)Resources["ErrorBrush"];
+                StatusBlock.Text = "The project folder is not empty! Aborting generation.";
+                IsCreateButtonEnabled = true;
                 return;
             }
 
@@ -152,6 +176,19 @@ namespace PhaserIDE.Views
                     if (!string.IsNullOrEmpty(text))
                         placeholderValues[placeholderKey] = text;
                 }
+            }
+            // Add the PHASER_VERSION placeholder
+            if (!string.IsNullOrEmpty(phaserVersion))
+            {
+                placeholderValues["PHASER_VERSION"] = phaserVersion;
+            }
+            else
+            {
+                HasErrors = true;
+                StatusBlock.Foreground = (Brush)Resources["ErrorBrush"];
+                StatusBlock.Text = "Please select a Phaser version!";
+                IsCreateButtonEnabled = true;
+                return;
             }
 
             var configPath = Path.Combine(targetFolder!, ConfigFileName);
@@ -223,11 +260,13 @@ namespace PhaserIDE.Views
                         StatusBlock.Foreground = (Brush)Resources["SuccessBrush"];
                         StatusBlock.Text = $"Project '{projectName}' created successfully!";
                         File.Delete(configPath);
+                        IsCreateButtonEnabled = true;
                     }
                     else
                     {
                         HasErrors = true;
                         StatusBlock.Text = $"Error: {process.ExitCode}";
+                        IsCreateButtonEnabled = true;
                     }
                 }
             }
@@ -242,6 +281,15 @@ namespace PhaserIDE.Views
                     ? (Brush)Resources["ErrorBrush"]
                     : new SolidColorBrush(Color.FromRgb(255, 255, 255));
             }
+        }
+
+        // TODO: Async ???
+        private bool CheckIfProjectFolderIsEmpty(string path)
+        {
+            if (!Directory.Exists(path))
+                return true;
+
+            return !Directory.EnumerateFileSystemEntries(path).Any();
         }
 
         private bool IsValidPath(string? path)
