@@ -1,0 +1,11 @@
+﻿✔ Hart Kodieren der Template Placeholder @done(25-06-11 21:19)
+✔ GUI erweitern um Input Felder der hart kodierten Placeholder @done(25-06-11 21:19)
+✔ Create Project Button disablen, solange async task läuft @started(25-06-11 20:55) @done(25-06-11 21:19) @lasted(24m32s)
+✔ Selektierte Phaser Version benutzen für replacement in Template @started(25-06-11 20:26) @done(25-06-11 20:54) @lasted(28m43s)
+✔ Prüfung auf leeres Verzeichnis hinzufügen bei select folder button @started(25-06-11 21:21) @done(25-06-11 21:42) @lasted(21m44s)
+☐ Add the phaser-gen-cli to the project or recreate it in c# @started(25-06-15 15:30)
+☐ Extend project creation by checkboxes for git init and npm install execution
+☐ Create a project meta data system to store project specific data
+☐ Add a feature for remembering created projects and rendering them in a list with linked metadata
+☐ Implement the projects view and allow deletion and loading of projects
+☐ Start implementation for the design view starting by rendering the first scene
