@@ -48,4 +48,27 @@
     </None>
   </ItemGroup>
 
+  <Target Name="CopyCliTool" AfterTargets="Build">
+    <ItemGroup>
+      <CliToolFiles Include="..\PhaserIDE.Create\bin\$(Configuration)\net9.0\PhaserIDE.Create.*" />
+    </ItemGroup>
+
+    <Copy
+      SourceFiles="@(CliToolFiles)"
+      DestinationFolder="$(OutputPath)"
+      SkipUnchangedFiles="true" />
+  </Target>
+
+  <Target Name="CopyTemplatesFolder" AfterTargets="Build">
+    <ItemGroup>
+      <TemplateFiles Include="..\PhaserIDE.Create\templates\**\*.*" />
+    </ItemGroup>
+
+    <Copy
+      SourceFiles="@(TemplateFiles)"
+      DestinationFiles="@(TemplateFiles->'$(OutputPath)templates\%(RecursiveDir)%(Filename)%(Extension)')"
+      SkipUnchangedFiles="true" />
+  </Target>
+
+
 </Project>
