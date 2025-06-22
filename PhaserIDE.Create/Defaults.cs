@@ -5,14 +5,14 @@
         public const string DefaultProjectName = "new-phaser-project";
         public const string ProjectConfigFile = "project.config.json";
 
-        public static string Title { get; set; } = DefaultProjectName;
-        public static string Author { get; set; } = "Author <author@example.com>";
-        public static string Year { get; set; } = System.DateTime.Now.Year.ToString();
-        public static string WebpackDevServerPort { get; set; } = "9000";
-        public static string PackageJsonDescription { get; set; } = "An application skeleton for 2D Game development with Phaser 3";
-        public static string SceneClassName { get; set; } = "DefaultScene";
-        public static string SceneKey { get; set; } = "defaultScene";
-
-        public static string PhaserVersion { get; set; } = "3.90.0";
+        public static readonly Dictionary<string, string> DefaultReplacements = new()
+        {
+            { "TITLE", DefaultProjectName },
+            { "AUTHOR", "Author <author@example.com>" },
+            { "YEAR", DateTime.Now.Year.ToString() },
+            { "WEBPACK_DEV_SERVER_PORT", "9000" },
+            { "PACKAGE_JSON_DESCRIPTION", "An application skeleton for 2D Game development with Phaser 3" },
+            { "PHASER_VERSION", "3.90.0" }
+        };
     }
 }
